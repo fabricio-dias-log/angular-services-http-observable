@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FoodListService } from '../../services/food-list.service';
+import { FoodList } from '../../module/food-list';
 
 @Component({
   selector: 'app-food-list',
@@ -8,12 +9,15 @@ import { FoodListService } from '../../services/food-list.service';
   styleUrl: './food-list.component.css'
 })
 export class FoodListComponent {
-  public foodList: Array<string> = [];
+  public foodList: Array<FoodList> = [];
 
   constructor(private foodListService: FoodListService) { }
 
   ngOnInit() {
-    this.foodList = this.foodListService.foodList();
+    this.foodListService.foodList().subscribe({
+      next: (res: Array<FoodList>) => this.foodList = res,
+      error: (err: any) => console.log(err)
+    });
 
     this.foodListService.emitEvent.subscribe({
       next: (res: string) => alert("Item adicionado: " + res)
