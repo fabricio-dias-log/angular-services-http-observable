@@ -26,4 +26,31 @@ export class FoodListComponent {
       }
     });
   }
+
+  updateFood(id: string, value: string){
+    this.foodListService.foodListEdit(id, value).subscribe({
+      next: (res) =>{
+        this.foodList = this.foodList.map((item) => {
+          if(item.id === id){
+            item.name = value;
+          }
+          return item;
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  deleteFood(id: string){
+    this.foodListService.foodListDelete(id).subscribe({
+      next: (res) => {
+        this.foodList = this.foodList.filter((item) => item.id !== id);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
 }
