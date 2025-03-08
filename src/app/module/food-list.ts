@@ -1,4 +1,4 @@
 export interface FoodList {
-  id: number;
+  id: string;
   name: string;
 }
