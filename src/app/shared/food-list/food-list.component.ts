@@ -20,7 +20,10 @@ export class FoodListComponent {
     });
 
     this.foodListService.emitEvent.subscribe({
-      next: (res: string) => alert("Item adicionado: " + res)
+      next: (res: FoodList) => {
+        alert("Item adicionado: " + res.name);
+        this.foodList.push(res);
+      }
     });
   }
 }

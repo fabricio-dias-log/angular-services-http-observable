@@ -20,12 +20,14 @@ export class FoodListService {
       );
   }
 
-  public foodListAdd(value: string) {
-    this.foodListAlert(value);
-    // return this.list.push(value);
+  public foodListAdd(value: string): Observable<FoodList> {
+    return this.http.post<FoodList>(`${this.url}/food-list`, { name: value })
+      .pipe(
+        res => res,
+        err => err
+      );
   }
-
-  public foodListAlert(value: string){
+  public foodListAlert(value: FoodList){
     return this.emitEvent.emit(value);
   }
 }
