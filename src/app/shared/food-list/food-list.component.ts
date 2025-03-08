@@ -14,5 +14,9 @@ export class FoodListComponent {
 
   ngOnInit() {
     this.foodList = this.foodListService.foodList();
+
+    this.foodListService.emitEvent.subscribe(
+      res => alert("Item adicionado: " + res)
+    );
   }
 }
